@@ -1,31 +1,36 @@
-import React from 'react'
-import {View,Text,StyleSheet} from 'react-native'
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { withNavigation } from "react-navigation";
+import ImageDetail from "../components/ImageDetail";
 
-import ImageDetail from '../components/ImageDetail'
+const ImageScreen = ({ navigation }) => {
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Search", {
+            name: "Beach",
+          });
+        }}
+      >
+        <ImageDetail
+          title={"beach"}
+          image={require("../../assets/images/forest.jpg")}
+        />
+      </TouchableOpacity>
 
-const ImageScreen = () => {
-    return (
-        <View>
-           
-                    <ImageDetail
-                    title={'beach'}
-                    image={require('../../assets/images/forest.jpg')}
-                    />
-                          <ImageDetail
-                    title={'forest'}
-                    image={require('../../assets/images/beach.jpg')}
-                    />
-                              <ImageDetail
-                    title={'mountain'}
-                    image={require('../../assets/images/mountain.jpg')}
-                    />
-            
-        </View>
-    )
-}
+      <ImageDetail
+        title={"forest"}
+        image={require("../../assets/images/beach.jpg")}
+      />
+      <ImageDetail
+        title={"mountain"}
+        image={require("../../assets/images/mountain.jpg")}
+      />
+    </View>
+  );
+};
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({});
 
-})
-
-export default ImageScreen
+export default withNavigation(ImageScreen);

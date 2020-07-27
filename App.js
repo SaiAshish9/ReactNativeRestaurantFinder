@@ -9,6 +9,9 @@ import ColorScreen from './playground/screens/ColorScreen'
 import SquareScreen from './playground/screens/SquareScreen'
 import TextScreen from './playground/screens/TextScreen'
 import BoxScreen from './playground/screens/BoxScreen'
+import SearchScreen from "./playground/screens/SearchScreen";
+
+
 
 const navigator = createStackNavigator(
   {
@@ -21,6 +24,7 @@ const navigator = createStackNavigator(
     Square:SquareScreen,
     TextInput:TextScreen,
     Box:BoxScreen,
+    Search:SearchScreen,
   },
   {
     initialRouteName: "Home",
