@@ -9,15 +9,15 @@ const ImageScreen = () => {
            
                     <ImageDetail
                     title={'beach'}
-                    image={require('../assets/images/forest.jpg')}
+                    image={require('../../assets/images/forest.jpg')}
                     />
                           <ImageDetail
                     title={'forest'}
-                    image={require('../assets/images/beach.jpg')}
+                    image={require('../../assets/images/beach.jpg')}
                     />
                               <ImageDetail
                     title={'mountain'}
-                    image={require('../assets/images/mountain.jpg')}
+                    image={require('../../assets/images/mountain.jpg')}
                     />
             
         </View>
