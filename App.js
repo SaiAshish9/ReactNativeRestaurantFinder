@@ -1,37 +1,33 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from "./playground/screens/HomeScreen";
-import ComponentsScreen from './playground/screens/Component';
-import ListScreen from './playground/screens/ListScreen';
-import ImageScreen from './playground/screens/ImageScreen';
-import CounterScreen from './playground/screens/CounterScreen'
-import ColorScreen from './playground/screens/ColorScreen'
-import SquareScreen from './playground/screens/SquareScreen'
-import TextScreen from './playground/screens/TextScreen'
-import BoxScreen from './playground/screens/BoxScreen'
-import SearchScreen from "./playground/screens/SearchScreen";
-
-
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import IndexScreen from "./src/screens/indexScreen";
+import ShowScreen from "./src/screens/ShowScreen";
+import CreateScreen from "./src/screens/CreateScreen";
+import { Provider } from "./src/context/BlogContext";
 
 const navigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    Components:ComponentsScreen,
-    List: ListScreen,
-    Image:ImageScreen,
-    Counter:CounterScreen,
-    Color:ColorScreen,
-    Square:SquareScreen,
-    TextInput:TextScreen,
-    Box:BoxScreen,
-    Search:SearchScreen,
+    Index: IndexScreen,
+    Show: ShowScreen,
+    Create: CreateScreen,
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Index",
     defaultNavigationOptions: {
-      title: "App"
-    }
+      title: "Blogs",
+    },
   }
 );
 
-export default createAppContainer(navigator);
+
+
+const App = createAppContainer(navigator);
+
+export default () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  );
+};
