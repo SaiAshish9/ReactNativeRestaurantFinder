@@ -1,7 +1,10 @@
 import createDataContext from "./createDataContext";
+import jsonServer from "../api/jsonServer";
 
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case "get_blogposts":
+      return action.payload;
     case "add_blogpost":
       return [
         ...state,
@@ -23,27 +26,49 @@ const blogReducer = (state, action) => {
   }
 };
 
-const addBlogPost = (dispatch) => {
-  return (title, content, callback) => {
+const getBlogPosts = (dispatch) => {
+  return async () => {
+    const res = await jsonServer.get("/blogposts");
     dispatch({
-      type: "add_blogpost",
-      payload: {
-        title,
-        content,
-      },
+      type: "get_blogposts",
+      payload: res.data,
+    });
+  };
+};
+
+const addBlogPost = (dispatch) => {
+  return async (title, content, callback) => {
+    await jsonServer.post("/blogposts", {
+      title,
+      content,
     });
     callback && callback();
+    // dispatch({
+    //   type: "add_blogpost",
+    //   payload: {
+    //     title,
+    //     content,
+    //   },
+    // });
   };
 };
 
 const deleteBlogPost = (dispatch) => {
-  return (id) => {
+  return async (id) => {
+    await jsonServer.delete(`/blogposts/${id}`);
     dispatch({ type: "delete_blogpost", payload: id });
   };
+  // return (id) => {
+  //   dispatch({ type: "delete_blogpost", payload: id });
+  // };
 };
 
 const editBlogPost = (dispatch) => {
-  return (id, title, content,callback) => {
+  return async (id, title, content, callback) => {
+    await jsonServer.put(`/blogposts/${id}`, {
+      title,
+      content,
+    });
     dispatch({
       type: "edit_blogpost",
       payload: {
@@ -52,18 +77,17 @@ const editBlogPost = (dispatch) => {
         content,
       },
     });
-    callback && callback()
+    callback && callback();
   };
 };
 
 export const { Context, Provider } = createDataContext(
   blogReducer,
-  { addBlogPost, deleteBlogPost, editBlogPost },
-  [
-    {
-      title: "test",
-      content: "lorem dolor sit am",
-      id: 1,
-    },
-  ]
+  {
+    getBlogPosts,
+    addBlogPost,
+    deleteBlogPost,
+    editBlogPost,
+  },
+  []
 );
