@@ -1,35 +1,38 @@
 import React from "react";
+
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+
+import { createBottomTabNavigator } from "react-navigation-tabs";
+
 import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
-import IndexScreen from "./src/screens/indexScreen";
-import ShowScreen from "./src/screens/ShowScreen";
-import CreateScreen from "./src/screens/CreateScreen";
-import EditScreen from "./src/screens/EditScreen";
-import { Provider } from "./src/context/BlogContext";
 
-const navigator = createStackNavigator(
-  {
-    Index: IndexScreen,
-    Show: ShowScreen,
-    Create: CreateScreen,
-    Edit: EditScreen
-  },
-  {
-    initialRouteName: "Index",
-    defaultNavigationOptions: {
-      title: "Blogs",
-    },
-  }
-);
+import AccountScreen from "./src/screens/AccountScrren";
+import SignUpScreen from "./src/screens/SignupScreen";
+import SignInScreen from "./src/screens/SigninScreen";
+import TrackListScreen from "./src/screens/TrackListScreen";
+import TrackDetailScreen from "./src/screens/TrackDetailScreen";
+import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 
+const SwitchNavigator = createSwitchNavigator({
+  loginFlow: createStackNavigator(
+    {
+      Signup: SignUpScreen,
+      Signin: SignInScreen,
+    }
+    // {
+    //   transitionConfig: () => ({
+    //     cardStyleInterpolator: CardStyleInterpolators.forHorizontal,
+    //   }),
+    // }
+  ),
+  mainFlow: createBottomTabNavigator({
+    trackListFlow: createStackNavigator({
+      TrackList: TrackListScreen,
+      TrackDetail: TrackDetailScreen,
+    }),
+    TrackCreate: TrackCreateScreen,
+    Account: AccountScreen,
+  }),
+});
 
-
-const App = createAppContainer(navigator);
-
-export default () => {
-  return (
-    <Provider>
-      <App />
-    </Provider>
-  );
-};
+export default createAppContainer(SwitchNavigator);
