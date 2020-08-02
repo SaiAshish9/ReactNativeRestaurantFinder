@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import {
   View,
   StyleSheet,
@@ -16,13 +16,11 @@ const { height, width } = Dimensions.get("window");
 import { NavigationEvents } from "react-navigation";
 
 const SignUpScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage, tryLocalSignin } = useContext(
+  const { state, signup, clearErrorMessage } = useContext(
     AuthContext
   );
 
-  useEffect(() => {
-    tryLocalSignin();
-  }, []);
+
 
   return (
     <View
